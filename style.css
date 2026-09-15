@@ -1,1 +1,159 @@
-/* Add your CSS here */
+/* Use simple colors inspired by Intel's blue branding. */
+:root {
+	--intel-blue: #0068b5;
+	--deep-blue: #003c71;
+	--light-blue: #e9f6ff;
+	--ink: #18324b;
+	--white: #ffffff;
+}
+
+/* Make sizing predictable on every screen. */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	color: var(--ink);
+	background: linear-gradient(135deg, #f7fcff 0%, var(--light-blue) 100%);
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* The hero introduces the story with a strong Intel blue background. */
+.hero {
+	min-height: 390px;
+	padding: 70px 24px 84px;
+	color: var(--white);
+	text-align: center;
+	background: linear-gradient(135deg, var(--deep-blue), var(--intel-blue));
+}
+
+.hero-content {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.hero img {
+	width: min(210px, 65vw);
+	margin-bottom: 32px;
+	filter: brightness(0) invert(1);
+}
+
+.hero h1 {
+	margin: 0;
+	font-size: clamp(2.3rem, 6vw, 4.5rem);
+	line-height: 1.05;
+	letter-spacing: -0.04em;
+}
+
+.hero p {
+	max-width: 650px;
+	margin: 24px auto 0;
+	font-size: 1.1rem;
+	line-height: 1.7;
+}
+
+/* Flexbox keeps the timeline cards in a horizontal row on larger screens. */
+.timeline {
+	display: flex;
+	gap: 22px;
+	max-width: 1500px;
+	margin: -38px auto 0;
+	padding: 0 24px 38px;
+	overflow-x: auto;
+	scroll-behavior: smooth;
+	/* LevelUp: Scroll Snap Effect makes each card settle into place. */
+	scroll-snap-type: x mandatory;
+	scroll-padding-left: 24px;
+}
+
+.timeline-card {
+	flex: 0 0 285px;
+	scroll-snap-align: start;
+	min-height: 365px;
+	padding: 24px;
+	overflow: hidden;
+	border: 1px solid #c8e4f6;
+	border-radius: 10px;
+	background: var(--white);
+	box-shadow: 0 14px 30px rgba(0, 60, 113, 0.12);
+	/* LevelUp: CSS Transforms lift the card smoothly on hover. */
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.timeline-card:hover {
+	transform: translateY(-9px);
+	box-shadow: 0 20px 34px rgba(0, 60, 113, 0.22);
+}
+
+.timeline-card h2 {
+	margin: 0 0 14px;
+	color: var(--intel-blue);
+	font-size: 2.4rem;
+}
+
+.timeline-card h3 {
+	min-height: 52px;
+	margin: 0 0 16px;
+	color: var(--deep-blue);
+	font-size: 1.25rem;
+}
+
+.timeline-card img {
+	width: 100%;
+	height: 125px;
+	object-fit: cover;
+	margin-bottom: 16px;
+	border-radius: 6px;
+}
+
+/* The paragraph is the extra detail revealed when a visitor hovers over a card. */
+.timeline-card p {
+	max-height: 0;
+	margin: 0;
+	overflow: hidden;
+	opacity: 0;
+	line-height: 1.6;
+	transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+
+.timeline-card:hover p,
+.timeline-card:focus-within p {
+	max-height: 220px;
+	opacity: 1;
+}
+
+body > p {
+	margin: 0 auto;
+	padding: 0 24px 44px;
+	color: var(--deep-blue);
+	font-weight: bold;
+	text-align: center;
+}
+
+/* On small screens, a vertical list is easier to read than a scrolling row. */
+@media (max-width: 700px) {
+	.hero {
+		min-height: 360px;
+		padding-top: 50px;
+	}
+
+	.timeline {
+		display: block;
+		margin-top: -24px;
+		padding: 0 18px 28px;
+		scroll-snap-type: none;
+	}
+
+	.timeline-card {
+		width: 100%;
+		min-height: auto;
+		margin-bottom: 18px;
+	}
+
+	/* Details stay open on touch screens because there is no hover state. */
+	.timeline-card p {
+		max-height: 240px;
+		opacity: 1;
+	}
+}
